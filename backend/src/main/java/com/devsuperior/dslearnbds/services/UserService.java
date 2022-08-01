@@ -24,9 +24,13 @@ public class UserService implements UserDetailsService {
 	@Autowired
 	private UserRepository repository;
 	
+	@Autowired
+	private AuthService authService;
 	
 	@Transactional(readOnly = true)
-	public UserDTO findById(Long id) {
+	public UserDTO findById(Long id) {	
+		authService.validateSelfOrAdmin(id);
+		System.out.print(id);
 		Optional<User> obj = repository.findById(id);
 		User entity = obj.orElseThrow(() -> new ResourceNotFoundException("Componente nao encontrado"));
 		return new UserDTO(entity);
