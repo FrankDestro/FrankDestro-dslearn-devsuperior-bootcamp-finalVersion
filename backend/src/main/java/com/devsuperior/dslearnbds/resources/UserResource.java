@@ -23,4 +23,6 @@ public class UserResource {
 		UserDTO dto = service.findById(id);
 		return ResponseEntity.ok().body(dto);
 	}
+	
+	
 }
